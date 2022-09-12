@@ -1,2 +1,0 @@
-name=doznpoc
-value=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
