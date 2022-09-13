@@ -26,6 +26,7 @@ public class KafkaConfig {
     // deogicorgi-topic-1 리시버
     @Bean("deogicorgiTopic1")
     public KafkaReceiver<Integer, String> uriMessageReceiver() throws Exception {
+        System.out.println("uriMessageReceiver for deogicorgiTopic1 is working...");
         Map.Entry<String, KafkaReceiverProperty> propertyEntry = properties.getProperty("deogicorgi-topic-1").orElse(null);
 
         if (ObjectUtils.isEmpty(propertyEntry)) {
@@ -44,6 +45,7 @@ public class KafkaConfig {
     // deogicorgi-topic-2 리시버
     @Bean("deogicorgiTopic2")
     public KafkaReceiver<Integer, String> messageReceiver() throws Exception {
+        System.out.println("messageReceiver for deogicorgiTopic2 is working...");
         Map.Entry<String, KafkaReceiverProperty> propertyEntry = properties.getProperty("deogicorgi-topic-2").orElse(null);
 
         if (ObjectUtils.isEmpty(propertyEntry)) {

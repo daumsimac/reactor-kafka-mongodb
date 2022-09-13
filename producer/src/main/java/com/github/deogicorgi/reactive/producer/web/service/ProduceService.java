@@ -19,6 +19,7 @@ import reactor.core.publisher.Mono;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 프로듀싱 서비스
@@ -57,14 +58,16 @@ public class ProduceService {
 //                        ObjectMapper mapper = new ObjectMapper();
                         Gson gson = new Gson();
 //                        Message msg = gson.fromJson(produceResult.getRequestedMessage(), Message.class);
-                        Mono<Message> messageMono = Mono.just(gson.fromJson(produceResult.getRequestedMessage(), MessageDto.class))
-                                .map(AppUtils::dtoToEntity).flatMap(m -> System.out::println);
-                        System.out.println(messageMono.toString());
-                        messageMono.flatMap(repo::insert);
-//                        messageDtoMono.map(AppUtils::entityToDto).flatMap(repo::insert);
 //                        System.out.println(msg.toString());
-//                        msg.map(repo::insert);
-//                        System.out.println("A message is saved successfully!!!");
+                        Mono<Message> messageMono = Mono.just(gson.fromJson(produceResult.getRequestedMessage(), MessageDto.class))
+                                .map(AppUtils::dtoToEntity);
+                        System.out.println(messageMono);
+                        messageMono.subscribe(value -> repo.save(value).subscribe(System.out::println),
+                                error -> error.printStackTrace(),
+                                () -> System.out.println("Terminiated..."));
+//                        messageMono.subscribe(value -> repo.insert(value),
+//                                error -> error.printStackTrace(),
+//                                () -> System.out.println("completed saving values..."));
                     }
                     return produceResult;
                 });

@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      database: MessagesDB
+      database: ProdMsgDB
       host: localhost
       port: 27017
 

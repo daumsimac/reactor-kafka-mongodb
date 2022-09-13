@@ -1,3 +1,10 @@
+spring:
+  data:
+    mongodb:
+      database: RcvMsgDB
+      host: localhost
+      port: 27017
+
 kafka:
   hosts: localhost:9092
   receiver :
